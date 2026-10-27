@@ -1,24 +1,29 @@
 import request from "supertest";
 import app from "../../src/server";
-import { db } from "../../src/shared/db";
+import { db } from "@/shared/db";
 import * as schema from "../../src/shared/db/schemas";
-import type { UserRole } from "../../src/shared/types/express";
+import type { UserRole } from "@/shared/types/express";
 import { eq } from "drizzle-orm";
+import { faker } from "@faker-js/faker";
 
 export async function authenticate(role: UserRole = "user") {
   const agent = request.agent(app)
 
   const user = {
-    name: "Test User",
-    email: "test@example.com",
-    password: "password123"
+    name: faker.person.firstName().toLowerCase(),
+    email: faker.internet.email(),
+    password: "developer"
   }
 
-  await agent
+  const auth = await agent
     .post("/api/auth/sign-up/email")
-    .send(user)
+    .send(user);
 
-  await db.update(schema.user).set({ role }).where(eq(schema.user.email, user.email))
+  const id = auth.body.user.id;
+
+  const userData = await db.update(schema.user).set({ role }).where(eq(schema.user.id, id)).returning();
+
+  const userId = userData[0]?.id ?? ""
 
   await agent
     .post("/api/auth/sign-in/email")
@@ -29,6 +34,7 @@ export async function authenticate(role: UserRole = "user") {
 
   return {
     user,
+    userId,
     agent
   }
 }

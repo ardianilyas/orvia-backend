@@ -1,5 +1,5 @@
 import { Router } from "express";
-import categoryRoute from "@/feature/category/category.route";
+import categoryRoute from "../../feature/category/category.route";
 
 const router = Router();
 

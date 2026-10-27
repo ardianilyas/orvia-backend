@@ -1,5 +1,7 @@
 import { relations } from "drizzle-orm";
-import { categories, tickets, user } from "@/shared/db/schemas";
+import { categories } from "../schemas/categories.schema";
+import { tickets } from "../schemas/tickets.schema";
+import { user } from "../schemas/users.schema";
 
 export const ticketRelations = relations(tickets, ({ one }) => ({
   author: one(user, {

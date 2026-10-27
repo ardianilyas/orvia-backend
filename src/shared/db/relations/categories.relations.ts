@@ -1,4 +1,5 @@
-import { categories, tickets } from "@/shared/db/schemas";
+import { categories } from "../schemas/categories.schema";
+import { tickets } from "../schemas/tickets.schema";
 import { relations } from "drizzle-orm";
 
 export const categoryRelations = relations(categories, ({ many }) => ({

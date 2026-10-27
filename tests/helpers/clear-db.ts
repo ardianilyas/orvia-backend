@@ -1,12 +1,11 @@
-import { sql } from "drizzle-orm";
-import { db } from "../../src/shared/db";
+import { db } from "@/shared/db";
+import { reset } from "drizzle-seed";
+import * as schemas from "../../src/shared/db/schemas";
+import * as relations from "../../src/shared/db/relations";
 
 export async function clearDb() {
-  await db.execute(
-    sql.raw(`
-      TRUNCATE TABLE
-      RESTART IDENTITY
-      CASCADE;
-    `)
-  );
+  await reset(db, {
+    ...schemas,
+    ...relations
+  });
 }

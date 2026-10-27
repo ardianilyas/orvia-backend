@@ -1,0 +1,5 @@
+2026-10-27T18:41:50.306Z - Global setup: Starting
+2026-10-27T18:41:50.412Z - Global setup: Database cleared successfully
+2026-10-27T18:42:08.661Z - Global teardown: Starting
+2026-10-27T18:42:08.725Z - Global teardown: Database cleared successfully
+2026-10-27T18:42:08.725Z - Global teardown: Pool ended

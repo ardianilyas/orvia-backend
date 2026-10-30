@@ -36,8 +36,8 @@ export const errorHandler = (
   /**
    * PostgreSQL/Drizzle Database Errors
    */
-  if (err instanceof Error && "code" in err) {
-    const pgError = err as { code: string; detail?: string };
+  if (err instanceof Error && err.cause && typeof err.cause === "object" && "code" in err.cause) {
+    const pgError = err.cause as { code: string; detail?: string };
 
     // 23505: unique violation
     if (pgError.code === "23505") {
@@ -51,7 +51,7 @@ export const errorHandler = (
     if (pgError.code === "23503") {
       return res.status(400).json({
         success: false,
-        message: pgError.detail || "Referenced record does not exist",
+        message: "Referenced record does not exist",
       });
     }
 
@@ -69,6 +69,6 @@ export const errorHandler = (
    */
   return res.status(500).json({
     success: false,
-    message: "Internal Server Error",
+    message: err.message ?? "Internal Server Error",
   });
 };

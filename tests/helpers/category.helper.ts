@@ -1,5 +1,5 @@
-import { db } from "../../src/shared/db";
-import { categories } from "../../src/shared/db/schemas/categories.schema";
+import { db } from "@/shared/db";
+import { categories } from "@/shared/db/schemas";
 import { faker } from "@faker-js/faker";
 
 export function createCategoryData(overrides: Partial<{ name: string; description: string }> = {}) {
@@ -22,6 +22,5 @@ export async function createCategoryInDb(overrides: Partial<{ name: string; desc
 
 export async function createMultipleCategoriesInDb(count: number = 3) {
   const categoriesData = Array.from({ length: count }, () => createCategoryData());
-  const insertedCategories = await db.insert(categories).values(categoriesData).returning();
-  return insertedCategories;
+  return db.insert(categories).values(categoriesData).returning();
 }

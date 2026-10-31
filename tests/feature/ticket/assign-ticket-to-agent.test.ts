@@ -40,11 +40,17 @@ describe("Assign ticket to agent", () => {
     expect(res.body.message).toBe(TICKET_NOT_FOUND);
   });
 
+  it('should return 400 when agent id not found', async () => {
+    const res = await user.patch(TICKET_TEST_ROUTE.ASSIGN_TICKET_TO_AGENT(ticketId)).send({ assigneeAgentId: "invalid-id" });
+
+    expect(res.status).toBe(400);
+  });
+
   it('should return 200 when ticket assigned to agent', async () => {
     const res = await user.patch(TICKET_TEST_ROUTE.ASSIGN_TICKET_TO_AGENT(ticketId)).send(payload);
 
     expect(res.status).toBe(200);
     expect(res.body.message).toBe(TICKET_SUCCESS_MESSAGE.ASSIGN_TICKET_TO_AGENT);
     expect(res.body.data.assignedAgentId).toBe(payload.assigneeAgentId);
-  })
+  });
 })

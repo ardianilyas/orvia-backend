@@ -11,8 +11,12 @@ export const createTicketDto = z.object({
 });
 
 export const updateTicketDto = createTicketDto.partial();
-
+export const assignTicketDto = z.object({
+  assigneeAgentId: z.string({ error: "Assignee agent id is required" }),
+});
 export const getTicketDto = z.uuid({ error: TICKET_VALIDATION_MESSAGE.ID_REQUIRED });
 
 export type CreateTicketDto = z.infer<typeof createTicketDto>;
 export type UpdateTicketDto = z.infer<typeof updateTicketDto>;
+export type AssignTicketDto = z.infer<typeof assignTicketDto>;
+export type GetTicketDto = z.infer<typeof getTicketDto>;

@@ -14,7 +14,6 @@ export async function createTickets(authorId: string, length: number = 1) {
     title: faker.commerce.productName(),
     description: faker.commerce.productDescription(),
     ticketNumber: faker.lorem.word(),
-    status: faker.helpers.arrayElement(ticketStatus.enumValues),
     priority: faker.helpers.arrayElement(ticketPriority.enumValues),
   }));
 

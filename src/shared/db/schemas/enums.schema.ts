@@ -1,7 +1,7 @@
 import { pgEnum } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", 
-  ["admin", "user"]
+  ["admin", "agent", "user"]
 );
 
 export const ticketPriority = pgEnum("ticket_priority", [

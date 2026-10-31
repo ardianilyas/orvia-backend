@@ -4,7 +4,7 @@ import { tickets } from "@/shared/db/schemas";
 import { desc, eq } from "drizzle-orm";
 import { NotFoundError } from "@/shared/errors/not-found.ts";
 import { TICKET_NOT_FOUND } from "@/feature/ticket/ticket.constant.ts";
-import type { CreateTicketDto, UpdateTicketDto } from "@/feature/ticket/ticket.dto.ts";
+import type { AssignTicketDto, CreateTicketDto, UpdateTicketDto } from "@/feature/ticket/ticket.dto.ts";
 import { DatabaseError } from "@/shared/errors/database-error.ts";
 import { generateTicketCode } from "@/shared/utils/ticket-code.ts";
 
@@ -33,6 +33,16 @@ export class TicketService {
 
   async updateTicket(id: string, data: UpdateTicketDto): Promise<Ticket | undefined> {
     const [ticket] = await db.update(tickets).set(data).where(eq(tickets.id, id)).returning();
+
+    if (!ticket) throw new NotFoundError(TICKET_NOT_FOUND);
+
+    return ticket;
+  }
+
+  async assignTicketToAgent(id: string, data: AssignTicketDto): Promise<Ticket | undefined> {
+    const [ticket] = await db.update(tickets).set({
+      assignedAgentId: data.assigneeAgentId
+    }).where(eq(tickets.id, id)).returning();
 
     if (!ticket) throw new NotFoundError(TICKET_NOT_FOUND);
 

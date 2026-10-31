@@ -15,6 +15,13 @@
       "when": 1793120239456,
       "tag": "0001_charming_boomerang",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793461445901,
+      "tag": "0002_soft_bishop",
+      "breakpoints": true
     }
   ]
 }

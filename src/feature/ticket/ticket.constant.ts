@@ -14,6 +14,7 @@ export const TICKET_SUCCESS_MESSAGE = {
   GET_TICKET: "Ticket fetched successfully",
   CREATE_TICKET: "Ticket created successfully",
   UPDATE_TICKET: "Ticket updated successfully",
+  ASSIGN_TICKET_TO_AGENT: "Ticket assigned to agent",
 }
 
 const TICKET_BASE_URL = "/api/tickets";
@@ -23,6 +24,7 @@ export const TICKET_TEST_ROUTE = {
   GET_TICKET: (id: string) => `${TICKET_BASE_URL}/${id}`,
   CREATE_TICKET: TICKET_BASE_URL,
   UPDATE_TICKET: (id: string) => `${TICKET_BASE_URL}/${id}`,
+  ASSIGN_TICKET_TO_AGENT: (id: string) => `${TICKET_BASE_URL}/${id}/assignee`,
   DELETE_TICKET: (id: string) => `${TICKET_BASE_URL}/${id}`,
 }
 
